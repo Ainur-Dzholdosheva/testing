@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import "./App.css";
 import Loader from "./Loader/Loader";
 import Table from "./Table/Table";
+import lodash from "lodash";
 
 class App extends Component {
   state = {
     isLoading: true,
     data: [],
+    sort: "asc", //desc
+    sortField: "id",
   };
 
   async componentDidMount() {
@@ -21,10 +24,32 @@ class App extends Component {
     });
   }
 
+  onSort = (sortField) => {
+    const clonedData = this.state.data.concat();
+    const sortType = this.state.sort === "asc" ? "desc" : "asc";
+
+    const orderedData = lodash.orderBy(clonedData, sortField, sortType);
+
+    this.setState({
+      data: orderedData,
+      sort: sortType,
+      sortField: sortField,
+    });
+  };
+
   render() {
     return (
       <div className="container">
-        {this.state.isLoading ? <Loader /> : <Table data={this.state.data} />}
+        {this.state.isLoading ? (
+          <Loader />
+        ) : (
+          <Table
+            data={this.state.data}
+            onSort={this.onSort}
+            sort={this.state.sort}
+            sortField={this.state.sortField}
+          />
+        )}
       </div>
     );
   }

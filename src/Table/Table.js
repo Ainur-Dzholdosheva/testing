@@ -4,11 +4,25 @@ export default (props) => (
   <table className="table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Phone</th>
+        <th onClick={props.onSort.bind(null, "id")}>
+          ID {props.sortField === "id" ? <small>{props.sort}</small> : null}
+        </th>
+        <th onClick={props.onSort.bind(null, "firstName")}>
+          First Name
+          {props.sortField === "id" ? <small>{props.sort}</small> : null}
+        </th>
+        <th onClick={props.onSort.bind(null, "lastName")}>
+          Last Name
+          {props.sortField === "id" ? <small>{props.sort}</small> : null}
+        </th>
+        <th onClick={props.onSort.bind(null, "email")}>
+          Email
+          {props.sortField === "id" ? <small>{props.sort}</small> : null}
+        </th>
+        <th onClick={props.onSort.bind(null, "phone")}>
+          Phone
+          {props.sortField === "id" ? <small>{props.sort}</small> : null}
+        </th>
       </tr>
     </thead>
     <tbody>
